@@ -35,6 +35,8 @@ contract FakeToken {
     uint32 public f = 0x55;
     /// @dev slot 6
     uint24[] public g;
+    /// @dev slot 7
+    mapping(uint256 => uint256) h;
 
     bytes32 internal constant ACCESS = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
 
@@ -49,6 +51,9 @@ contract FakeToken {
         for (uint24 i = 0; i < 100; i++) {
             g.push(i + 0x03);
         }
+
+        h[10] = 0xbbbb;
+        h[0] = 0xaaaaa;
     }
 
     function accessRole(uint256 slotNo) internal view virtual returns (uint256 user) {
@@ -62,7 +67,11 @@ contract ReadSlotData is FakeToken {
         return accessRole(slotNo);
     }
 
-    function getSlotNumber(bytes memory slotNo) external pure returns (bytes32) {
+    function keCcak256(bytes memory slotNo) external pure returns (bytes32) {
         return keccak256(slotNo);
+    }
+    
+    function keCcak256_2(uint256 id, uint256 locatedSlotNo) external pure returns (bytes32) {
+        return keccak256(abi.encodePacked(id, locatedSlotNo));
     }
 }

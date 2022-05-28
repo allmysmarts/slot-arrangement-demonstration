@@ -11,6 +11,7 @@ describe("ReadSlotData", function () {
     const readSlotData = await ReadSlotData.deploy();
     await readSlotData.deployed();
 
+    // read general slots
     let i = 0
     while (i < 10) {
       const data = await readSlotData.readSlot(i)
@@ -19,7 +20,7 @@ describe("ReadSlotData", function () {
     }
 
     // Dynamic size array {e} is located in slot 2
-    const dynamicArray1SlotNo = await readSlotData.getSlotNumber("0x0000000000000000000000000000000000000000000000000000000000000002")
+    const dynamicArray1SlotNo = await readSlotData.keCcak256("0x0000000000000000000000000000000000000000000000000000000000000002")
     i = 0
     while (i < 10) {
       const data = await readSlotData.readSlot(ethers.BigNumber.from(dynamicArray1SlotNo).add(i))
@@ -28,13 +29,18 @@ describe("ReadSlotData", function () {
     }
 
     // Dynamic size array {g} is located in slot 6
-    const dynamicArray2SlotNo = await readSlotData.getSlotNumber("0x0000000000000000000000000000000000000000000000000000000000000006")
+    const dynamicArray2SlotNo = await readSlotData.keCcak256("0x0000000000000000000000000000000000000000000000000000000000000006")
     i = 0
     while (i < 10) {
       const data = await readSlotData.readSlot(ethers.BigNumber.from(dynamicArray2SlotNo).add(i))
       console.log(`array-slot-${i}: `, data.toHexString())
       i++
     }
+
+    // mapping {h} is located in slot 7, so h[10] is located in keccak256(10,7)
+    const mappingSlotNo = await readSlotData.keCcak256_2(10, 7)
+    const h10Data = await readSlotData.readSlot(mappingSlotNo)
+    console.log('slot-data-10:', h10Data.toHexString())
   });
 });
 

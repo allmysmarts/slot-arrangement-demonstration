@@ -33,7 +33,8 @@ contract FakeToken {
     Member public owner;
     /// @dev slot 5, after struct, it creates new slot.
     uint32 public f = 0x55;
-
+    /// @dev slot 6
+    uint24[] public g;
 
     bytes32 internal constant ACCESS = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
 
@@ -42,7 +43,11 @@ contract FakeToken {
         owner.account = 0x528;
 
         for (uint256 i = 0; i < 99; i++) {
-            e.push(i * i);
+            e.push(i * i + 0xa0);
+        }
+
+        for (uint24 i = 0; i < 100; i++) {
+            g.push(i + 0x03);
         }
     }
 
@@ -55,5 +60,9 @@ contract FakeToken {
 contract ReadSlotData is FakeToken {
     function readSlot(uint256 slotNo) external view returns (uint256) {
         return accessRole(slotNo);
+    }
+
+    function getSlotNumber(bytes memory slotNo) external pure returns (bytes32) {
+        return keccak256(slotNo);
     }
 }

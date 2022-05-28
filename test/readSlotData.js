@@ -12,7 +12,7 @@ describe("ReadSlotData", function () {
     await readSlotData.deployed();
 
     let i = 0
-    while (i < 5) {
+    while (i < 10) {
       const data = await readSlotData.readSlot(i)
       console.log(`slot-${i}: `, data.toHexString())
       i++

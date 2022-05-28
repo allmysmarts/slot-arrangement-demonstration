@@ -41,6 +41,10 @@ describe("ReadSlotData", function () {
     const mappingSlotNo = await readSlotData.keCcak256_2(10, 7)
     const h10Data = await readSlotData.readSlot(mappingSlotNo)
     console.log('slot-data-10:', h10Data.toHexString())
+
+    const mappingSlot1No = await readSlotData.keCcak256("0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000007")
+    const h1Data = await readSlotData.readSlot(mappingSlot1No)
+    console.log('slot-data-1:', h1Data.toHexString())
   });
 });
 

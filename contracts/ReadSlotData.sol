@@ -53,7 +53,7 @@ contract FakeToken {
         }
 
         h[10] = 0xbbbb;
-        h[0] = 0xaaaaa;
+        h[1] = 0xaaaaa;
     }
 
     function accessRole(uint256 slotNo) internal view virtual returns (uint256 user) {
